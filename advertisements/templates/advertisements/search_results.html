@@ -1,0 +1,65 @@
+{% extends "advertisements/base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Поиск объявлений</h3>
+            </div>
+            <div class="card-body">
+                <form method="get" action="{% url 'advertisements:search' %}">
+                    <div class="mb-3">
+                        <label for="{{ form.query.id_for_label }}" class="form-label">{{ form.query.label }}</label>
+                        {{ form.query }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.category.id_for_label }}" class="form-label">{{ form.category.label }}</label>
+                        {{ form.category }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.min_price.id_for_label }}" class="form-label">{{ form.min_price.label }}</label>
+                        {{ form.min_price }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.max_price.id_for_label }}" class="form-label">{{ form.max_price.label }}</label>
+                        {{ form.max_price }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.location.id_for_label }}" class="form-label">{{ form.location.label }}</label>
+                        {{ form.location }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Найти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h1>Результаты поиска</h1>
+        
+        <div class="row">
+            {% for advertisement in advertisements %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ advertisement.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ advertisement.price }} руб.</h6>
+                        <p class="card-text">{{ advertisement.description|truncatewords:20 }}</p>
+                        <p class="card-text"><small class="text-muted">Местоположение: {{ advertisement.location }}</small></p>
+                        <p class="card-text"><small class="text-muted">Категория: {{ advertisement.category.name }}</small></p>
+                        <p class="card-text"><small class="text-muted">Дата: {{ advertisement.created|date:"d.m.Y" }}</small></p>
+                        <a href="{% url 'advertisements:advertisement_detail' advertisement.id %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    По вашему запросу ничего не найдено. Попробуйте изменить параметры поиска.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

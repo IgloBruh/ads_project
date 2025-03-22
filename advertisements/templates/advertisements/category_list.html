@@ -1,0 +1,30 @@
+{% extends "advertisements/base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Категории объявлений</h1>
+        <div class="row mt-4">
+            {% for category in categories %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ category.name }}</h5>
+                        {% if category.description %}
+                        <p class="card-text">{{ category.description }}</p>
+                        {% endif %}
+                        <a href="{% url 'advertisements:category_detail' category.slug %}" class="btn btn-primary">Просмотреть объявления</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Категории пока не созданы.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

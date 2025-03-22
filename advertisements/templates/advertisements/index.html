@@ -1,0 +1,86 @@
+{% extends "advertisements/base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3>Поиск объявлений</h3>
+            </div>
+            <div class="card-body">
+                <form method="get" action="{% url 'advertisements:search' %}">
+                    <div class="mb-3">
+                        <label for="{{ form.query.id_for_label }}" class="form-label">{{ form.query.label }}</label>
+                        {{ form.query }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.category.id_for_label }}" class="form-label">{{ form.category.label }}</label>
+                        {{ form.category }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.min_price.id_for_label }}" class="form-label">{{ form.min_price.label }}</label>
+                        {{ form.min_price }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.max_price.id_for_label }}" class="form-label">{{ form.max_price.label }}</label>
+                        {{ form.max_price }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="{{ form.location.id_for_label }}" class="form-label">{{ form.location.label }}</label>
+                        {{ form.location }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Найти</button>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3>Категории</h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for category in categories %}
+                    <li class="list-group-item">
+                        <a href="{% url 'advertisements:category_detail' category.slug %}">{{ category.name }}</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item">Нет доступных категорий</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Последние объявления</h1>
+            {% if user.is_authenticated %}
+            <a href="{% url 'advertisements:advertisement_create' %}" class="btn btn-success">Добавить объявление</a>
+            {% endif %}
+        </div>
+        
+        <div class="row">
+            {% for advertisement in advertisements %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ advertisement.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ advertisement.price }} руб.</h6>
+                        <p class="card-text">{{ advertisement.description|truncatewords:20 }}</p>
+                        <p class="card-text"><small class="text-muted">Местоположение: {{ advertisement.location }}</small></p>
+                        <p class="card-text"><small class="text-muted">Категория: {{ advertisement.category.name }}</small></p>
+                        <p class="card-text"><small class="text-muted">Дата: {{ advertisement.created|date:"d.m.Y" }}</small></p>
+                        <a href="{% url 'advertisements:advertisement_detail' advertisement.id %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Объявлений пока нет. {% if user.is_authenticated %}<a href="{% url 'advertisements:advertisement_create' %}">Создайте первое!</a>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

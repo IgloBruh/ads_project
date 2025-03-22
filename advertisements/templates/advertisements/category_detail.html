@@ -1,0 +1,39 @@
+{% extends "advertisements/base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>{{ category.name }}</h1>
+        {% if category.description %}
+        <p class="lead">{{ category.description }}</p>
+        {% endif %}
+        
+        <div class="row mt-4">
+            {% for advertisement in advertisements %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ advertisement.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ advertisement.price }} руб.</h6>
+                        <p class="card-text">{{ advertisement.description|truncatewords:20 }}</p>
+                        <p class="card-text"><small class="text-muted">Местоположение: {{ advertisement.location }}</small></p>
+                        <p class="card-text"><small class="text-muted">Дата: {{ advertisement.created|date:"d.m.Y" }}</small></p>
+                        <a href="{% url 'advertisements:advertisement_detail' advertisement.id %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    В этой категории пока нет объявлений. {% if user.is_authenticated %}<a href="{% url 'advertisements:advertisement_create' %}">Создайте первое!</a>{% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="mt-3">
+            <a href="{% url 'advertisements:category_list' %}" class="btn btn-secondary">Вернуться к списку категорий</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
