@@ -26,11 +26,11 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/IgloBruh/Advs_Site
+   git clone https://github.com/IgloBruh/ads_project.git
    ```
 2. Перейдите в папку проекта:
   ```bash
-     cd Advs_Site
+     cd ads_project
    ```
 3. Создайте и активируйте виртуальное окружение:
   ```bash
