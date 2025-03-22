@@ -25,7 +25,7 @@
 ## Установка и запуск
 
 1. Клонируйте репозиторий:
-   ```bash
+  ```bash
   git clone https://github.com/IgloBruh/ads_project.git
   ```
 2. Перейдите в папку проекта:
@@ -34,21 +34,21 @@
   ```
 3. Создайте и активируйте виртуальное окружение:
   ```bash
-   python -m venv venv
-   source venv/bin/activate   # для Linux/Mac
-   venv\Scripts\activate      # для Windows
+  python -m venv venv
+  source venv/bin/activate   # для Linux/Mac
+  venv\Scripts\activate      # для Windows
   ```
 4. Установите зависимости:
   ```bash
-   pip install -r requirements.txt
+  pip install -r requirements.txt
   ```
 5. Выполните миграции базы данных:
   ```bash
-   python manage.py migrate
+  python manage.py migrate
   ```
 6. Запустите сервер разработки:
   ```bash
-   python manage.py runserver
+  python manage.py runserver
   ```
    
 Теперь сайт доступен по адресу http://127.0.0.1:8000/.
