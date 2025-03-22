@@ -27,7 +27,7 @@
 1. Клонируйте репозиторий:
    ```bash
   git clone https://github.com/IgloBruh/ads_project.git
-   ```
+  ```
 2. Перейдите в папку проекта:
   ```bash
   cd ads_project
