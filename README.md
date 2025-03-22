@@ -26,12 +26,12 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/IgloBruh/ads_project.git
+  git clone https://github.com/IgloBruh/ads_project.git
    ```
 2. Перейдите в папку проекта:
   ```bash
-     cd ads_project
-   ```
+  cd ads_project
+  ```
 3. Создайте и активируйте виртуальное окружение:
   ```bash
    python -m venv venv
